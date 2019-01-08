@@ -1,0 +1,30 @@
+{
+  "name": "jqapp",
+  "description": "JavaScript MVC (MVP) Framework suitable for jQuery development",
+  "version": "1.0.0",
+  "keywords": [
+    "jqapp",
+    "javascript",
+    "frontend",
+    "framework",
+    "jQuery",
+    "mvc",
+    "mvp",
+  ],
+  "homepage": "https://github.com/yidas/jqapp",
+  "authors": [
+    "Nick Tsai <myintaer@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yidas/jqapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yidas/jqapp/issues"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/yidas/jqapp/blob/master/LICENSE"
+  },
+  "main": "dist/jqapp.js"
+}

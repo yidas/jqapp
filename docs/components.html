@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Jqapp Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" class="js-site-favicon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <!-- Custom styles for this template -->
+  <link href="narrow-jumbotron.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <div class="header clearfix">
+    <nav>
+      <ul class="nav nav-pills float-right">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Demo <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./">Outline</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/yidas/jqapp">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <h3 class="text-muted">Jqapp.js</h3>
+  </div> <!-- /header -->
+
+  
+  <h4>Components</h4>
+  <p><a href="https://jsfiddle.net/ec5mqhy1/" target="_blank">JSFiddle Example</a></p>
+  
+  <div id="app">
+    <button type="button" class="btn btn-success btn-add">Add a Counter</button>
+    <div class="list"></div>
+  </div>
+
+  <footer class="footer" style="margin-top: 15px;">
+    <p>&copy; <a class="" href="https://github.com/yidas/jqapp">GitHub yidas/jqapp</a></p>
+  </footer>
+
+</div> <!-- /container -->
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="dist/jqapp.js"></script>
+<script>
+
+// Define a new component called counter for Jqapp instance
+var counterComponent = {
+  data: {count: 0},
+  template: '<div><button class="btn btn-outline-secondary">You clicked me <span class="count">{{ count }}</span> times.</button></div>',
+  mounted: function () {
+    // Cache this for calling in event function
+    var component = this;
+    // Bind a event to button element in the component
+    this.$el.find('button').click(function () {
+      // Count
+      component.count ++;
+      // Update view
+      $(this).find(".count").text(component.count);
+    });
+  }
+};
+
+/**
+ * Define #app as an App 
+ */
+var app = new Jqapp({
+  el: "#app",
+  components: {
+    'counter': counterComponent,
+  },
+  methods: {
+    createCounter: function () {
+      // Render component `counter` and append into `.list` element in current scope
+      this.append(".list", 'counter');
+    }
+  },
+  mounted: function () {
+
+    // Add two counter at initialization
+    this.createCounter();
+    this.createCounter();
+    
+    // Cache this for calling in event function
+    var app = this;
+    // Find element from vm scope using jQuery
+    this.$find(".btn-add").click(function() {
+      
+      app.createCounter();
+    });
+  },
+});
+
+</script>
+</body>
+</html>

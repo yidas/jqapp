@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Jqapp Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" class="js-site-favicon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <!-- Custom styles for this template -->
+  <link href="narrow-jumbotron.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <div class="header clearfix">
+    <nav>
+      <ul class="nav nav-pills float-right">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Outline</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/yidas/jqapp">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <h3 class="text-muted">Jqapp.js</h3>
+  </div> <!-- /header -->
+  
+  <div id="app" style="display: none;">
+    <h4>Outline</h4>
+    <ul>
+      <!-- Items -->
+    </ul>
+  </div>
+
+  <footer class="footer" style="margin-top: 15px;">
+    <p>&copy; <a class="" href="https://github.com/yidas/jqapp">GitHub yidas/jqapp</a></p>
+  </footer>
+
+</div> <!-- /container -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="dist/jqapp.js"></script>
+<script>
+
+/**
+ * Define #app as an App 
+ */
+var app = new Jqapp({
+  el: "#app",
+  data: {items: [
+    {
+      title: 'Components',
+      link: './components.html',
+      desc: 'Basic component concept with counters demonstration',
+    },
+    {
+      title: 'Components Deep',
+      link: './components-deep.html',
+      desc: 'Components in components',
+    },
+    {
+      title: 'Template',
+      link: './template.html',
+      desc: 'Basic template with text variables',
+    },
+    {
+      title: 'Pure JS only (ECMAScript 5)',
+      link: './pure-js.html',
+      desc: 'Jqapp for pure JS usage without jQuery library',
+    },
+  ]},
+  components: {
+    'liComponent': {
+      template: '<li><a href="{{ link }}">{{ title }}</a> <p>{{ desc }}</p></li>',
+    },
+  },
+  mounted: function () {
+
+    var app = this;
+    $.each(this.items, function (k, item) {
+      app.append("ul", 'liComponent', {data: {
+        title: item.title,
+        link: item.link,
+        desc: item.desc,
+      }});
+    });
+    // Display in the end of mounted hook
+    this.$el.slideDown();
+  },
+});
+
+</script>
+</body>
+</html>
