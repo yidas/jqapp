@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Jqapp Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" class="js-site-favicon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <!-- Custom styles for this template -->
+  <link href="narrow-jumbotron.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <div class="header clearfix">
+    <nav>
+      <ul class="nav nav-pills float-right">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Demo <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./">Outline</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/yidas/jqapp">GitHub</a>
+        </li>
+      </ul>
+    </nav>
+    <h3 class="text-muted">Jqapp.js</h3>
+  </div> <!-- /header -->
+
+  <h4>Components with 2 layer</h4>
+  <p><a href="https://jsfiddle.net/xpmsktq9/" target="_blank">JSFiddle Example</a></p>
+  
+  <div id="app">
+    <button type="button" class="btn btn-success btn-add">Add</button>
+    <div class="list"></div>
+  </div>
+
+  <footer class="footer" style="margin-top: 15px;">
+    <p>&copy; <a class="" href="https://github.com/yidas/jqapp">GitHub yidas/jqapp</a></p>
+  </footer>
+
+</div> <!-- /container -->
+
+<!-- Template  -->
+<script type="text/template" id="item-template">
+  <div style="display: none;">
+    <hr>
+    <div class="row">
+      <div class="col-3">
+        <input type="text" class="form-control" name="data[]" placeholder="Text for Add" value="Item" />
+      </div>
+      <div class="col-9">
+        <button type="button" class="btn btn-outline-success btn-add">Add</button>
+        <button type="button" class="btn btn-outline-danger btn-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</script>
+<!-- /Template  -->
+
+<!-- Template  -->
+<script type="text/template" id="item-sub-template">
+  <div style="display: none;">
+    <button type="button" class="btn btn-outline-danger btn-sm btn-delete">Delete</button>
+    <span class="item">{{ text }} (Usage: <code>\{\{ data-key }}</code>)</span>
+  </div>
+</script>
+<!-- /Template  -->
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="dist/jqapp.js"></script>
+<script>
+
+/**
+ * Define item sub component from item component
+ */
+var itemSubComponent = {
+  template: "#item-sub-template",
+  data: {text: ''},
+  mounted: function () {
+    console.log(this.$parent);
+    console.log(this.$root);
+    var component = this;
+    // Init & Events
+    this.$$el.find('.btn-delete').click(function () {
+      
+      component.$$el.slideUp('fast', function () {
+        // Destroy cycle
+        component.$remove();
+      });
+    });
+  },
+};
+
+/**
+ * Define item component from App
+ */
+var itemComponent = {
+  template: "#item-template",
+  components: {
+    'sub-item': itemSubComponent,
+  },
+  mounted: function () {
+    console.log(this.$parent);
+    var component = this;
+    // Init & Events
+    var $input = this.$$el.find("input[name='data[]']");
+    this.$$el.find('.btn-add').click(function () {
+
+      component.$append(false, 'sub-item', {data: {text: $input.val()}}, function (el) {
+        $(el).slideDown('fast');
+      });
+    });
+    this.$$el.find('.btn-delete').click(function () {
+
+      component.$el.slideUp(function () {
+        // Destroy cycle
+        component.$remove();
+      });
+    });
+  }
+};
+
+/**
+ * Define #app as an App 
+ */
+var app = new Jqapp({
+  el: "#app",
+  // template: "<font>123<font/>",
+  components: {
+    'item': itemComponent,
+  },
+  mounted: function () {
+    var app = this;
+    // Find element from vm scope using jQuery
+    this.$$find(".btn-add").click(function() {
+      // Render component `item` and append into Jqapp scope
+      app.$$append(".list", 'item', false, function ($component) {
+        
+        $component.slideDown();
+      });
+    });
+  },
+});
+
+</script>
+</body>
+</html>
