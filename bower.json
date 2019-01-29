@@ -9,7 +9,7 @@
     "framework",
     "jQuery",
     "mvc",
-    "mvp",
+    "mvp"
   ],
   "homepage": "https://github.com/yidas/jqapp",
   "authors": [
