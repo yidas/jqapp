@@ -6,6 +6,9 @@
     <br>
 </p>
 
+[![npm version](https://img.shields.io/npm/v/jqapp.svg)](https://www.npmjs.com/package/jqapp)
+[![License](https://img.shields.io/github/license/yidas/jqapp.svg)](https://github.com/yidas/jqapp/blob/master/LICENSE)
+
 JavaScript MVC (MVP) Framework suitable for jQuery development
 
 FEATURES
