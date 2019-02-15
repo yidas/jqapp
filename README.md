@@ -156,6 +156,27 @@ app.a // => 1
 app.alert();
 ```
 
+In addition to data properties, Jqapp instances expose a number of useful instance properties and methods. These are prefixed with `$` to differentiate them from user-defined properties. For example:
+
+```javascript
+var data = { a: 1 }
+var app = new Jqapp({
+  el: '#app',
+  data: data
+});
+
+app.$data === data // => true
+app.$el === document.getElementById('app') // => true
+app.$$el.get(0) === $('#app').get(0) // => true
+
+// $remove is an instance method
+app.$remove();
+```
+
+> Prefix `$` indicates Jqapp instance properties or methods.  
+> Prefix `$$` indicates jQuery object returning of Jqapp instance properties or methods.
+
+
 #### Instance Element Scope
 
 After Jqapp instance is [mounted](#-mounted), the [`this.$el`](#-thisel)(Element) / [`this.$$el`](#-thisel-1)(jQuery Element) will be created which refer to the instance element. You can manipulate or query any element under the instance root element's scope by using them:
