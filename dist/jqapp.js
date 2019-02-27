@@ -2,7 +2,7 @@
  * Jqapp
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
- * @version 1.3.0
+ * @version 1.3.1
  * @see     https://github.com/yidas/jqapp
  */
 
@@ -112,8 +112,9 @@
      */
     if (this.$template || Jqapp.config.compileElement) {
 
-      // unify into template string format
-      var template = (this.$template) ? this.$template : el.outerHTML;
+      // Cache el to template if not existent
+      this.$template = (this.$template) ? this.$template : el.outerHTML;
+      var template = this.$template;
       var html;
       // Template polymorphism
       if (template.indexOf("#")===0) {
