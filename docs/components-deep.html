@@ -116,7 +116,7 @@ var itemComponent = {
     });
     this.$$el.find('.btn-delete').click(function () {
 
-      component.$el.slideUp(function () {
+      component.$$el.slideUp(function () {
         // Destroy cycle
         component.$remove();
       });
