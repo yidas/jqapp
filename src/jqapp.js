@@ -2,7 +2,7 @@
  * Jqapp
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
- * @version 1.3.1
+ * @version 1.3.2
  * @see     https://github.com/yidas/jqapp
  */
 
@@ -569,7 +569,7 @@
     // Chain tree
     this.$parent = parent;
     // Inherit root
-    this.$root = parent.$root;
+    this.$root = parent.$root || parent;
 
     return this;
   }
