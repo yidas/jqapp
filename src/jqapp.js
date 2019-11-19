@@ -149,8 +149,8 @@
           // Clean other JS code
           g1 = g1.replace(';', '');
           // Get result
-          var result = htmlencode(eval('that.'+g1));
-          result = (typeof result !== 'undefined') ? result : '';
+          var result = eval('that.'+g1);
+          result = (typeof result !== 'undefined') ? htmlencode(result) : '';
           // Formated output same as Vue.js
           return (typeof result === 'object') ? JSON.stringify(result) : String(result);
 
