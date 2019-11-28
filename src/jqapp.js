@@ -85,18 +85,6 @@
   }
 
   /**
-   * HTML entities encode
-   *
-   * @param {string} str Input text
-   * @return {string} Filtered text
-   */
-  function htmlencode (str) {
-    var div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
-  }
-
-  /**
    * Mount element into instance
    * 
    * @param {Element|string|jQuery} elementOrSelector
@@ -150,7 +138,7 @@
           g1 = g1.replace(';', '');
           // Get result
           var result = eval('that.'+g1);
-          result = (typeof result !== 'undefined') ? htmlencode(result) : '';
+          result = (typeof result !== 'undefined') ? Helper.htmlencode(result) : '';
           // Formated output same as Vue.js
           return (typeof result === 'object') ? JSON.stringify(result) : String(result);
 
@@ -726,6 +714,19 @@
 
       // Return the modified object
       return target;
+    }
+
+    /**
+     * HTML entities encode
+     *
+     * @param {string} str Input text
+     * @return {string} Filtered text
+     */
+    this.htmlencode = function (str) {
+
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
     }
   }
 
