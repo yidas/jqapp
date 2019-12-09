@@ -2,7 +2,7 @@
  * Jqapp
  * 
  * @author  Nick Tsai <myintaer@gmail.com>
- * @version 1.3.2
+ * @version 1.4.0
  * @see     https://github.com/yidas/jqapp
  */
 
